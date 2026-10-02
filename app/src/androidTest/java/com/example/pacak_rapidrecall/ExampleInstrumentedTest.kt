@@ -9,9 +9,13 @@ import org.junit.runner.RunWith
 import org.junit.Assert.*
 
 /**
- * Instrumented test, which will execute on an Android device.
+ * Checks that the installed app has the expected package name.
  *
- * See [testing documentation](http://d.android.com/tools/testing).
+ * This uses AndroidJUnit4 to get the app context on a device, which is not
+ * available in a regular local unit test.
+ *
+ * Known issues: it needs an emulator or phone to run. It does not test the UI,
+ * gameplay, saved attempts, or what happens when the activity is recreated.
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
