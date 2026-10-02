@@ -49,8 +49,9 @@ fun RapidRecallScreen(
         item {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("pacak-RapidRecall", style = MaterialTheme.typography.headlineLarge)
+                Text("CCID - Pacak | SID - 1762229", style = MaterialTheme.typography.headlineMedium)
                 Text(
-                    "Challenge your memory, one digit at a time. Recall sequences of 1–10 digits.",
+                    "Challenge your memory. Recall sequences of 1–10 digits.",
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

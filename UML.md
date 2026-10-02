@@ -21,11 +21,9 @@ classDiagram
     }
     class Sequence {
         -values: List~Int~
-        -position: Int
         +digits: List~Int~
         +Sequence(initialDigits: List~Int~)
         +setSequence(n: Int) Unit
-        +nextNumber() Int?
     }
     class GameRound {
         -targetDigits: List~Int~
@@ -76,16 +74,15 @@ and creates a new `Sequence` each time its `sequence` getter is called.
 ### Sequence
 
 - Constructor: `Sequence(initialDigits: List<Int> = emptyList())`.
-  It copies the supplied digits and starts `position` at zero.
-- `values` and `position` are private mutable properties. `digits` is a public
+  It copies the supplied digits.
+- `values` is a private mutable property. `digits` is a public
   computed read-only property returning a copy of `values`.
 - Constructor validation allows an empty sequence, at most 10 digits, and only digits
   from 0 through 9. Invalid input throws `IllegalArgumentException`.
 - `setSequence(n: Int): Unit` requires `n` in `1..10`, generates each digit with
-  `Random.nextInt(0, 10)`, and resets playback. Leading zeroes are allowed.
-- `nextNumber(): Int?` returns the next digit and advances the position, or returns
-  `null` when exhausted. The current dialog iterates over `digits` instead of using
-  this method.
+  `Random.nextInt(0, 10)`, replacing the target digits. Leading zeroes are allowed.
+- The dialog iterates over `digits` to handle timed display. The model does not
+  track playback state.
 
 ### GameRound
 
@@ -241,7 +238,7 @@ sequenceDiagram
 - The observable history and saveable session avoid a database while preserving
   completed attempts during normal activity recreation. Saved state is not permanent
   storage and is not guaranteed to survive every app exit or termination.
-- Dialog state, playback position, and visibility are not saveable. Rotation closes
+- Dialog state and visibility are not saveable. Rotation closes
   an unfinished game, but completed history can be restored.
 - Very large histories may exceed Android's saved-state size limit. History is lazily
   rendered, but data is not paginated or stored on disk.

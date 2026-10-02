@@ -3,14 +3,13 @@ package com.example.pacak_rapidrecall
 import kotlin.random.Random
 
 /**
- * Makes a random sequence and returns its digits in order.
+ * Makes a random sequence and provides a copy of its digits.
  * All positions can be zero. Copying the initial digits protects saved rounds.
- * null marks the end of playback instead of a special number.
- * Known issues: the playback position is not saved after activity recreation.
+ * The UI handles displaying the digits, so this class only stores the target.
+ * Known issues: an empty sequence is allowed until a target is generated.
  */
 class Sequence(initialDigits: List<Int> = emptyList()) {
     private var values = initialDigits.toList()
-    private var position = 0
     val digits: List<Int> get() = values.toList()
 
     init {
@@ -20,8 +19,6 @@ class Sequence(initialDigits: List<Int> = emptyList()) {
     fun setSequence(n: Int) {
         require(n in 1..10) { "Sequence length must be between 1 and 10" }
         values = List(n) { Random.nextInt(0, 10) }
-        position = 0
     }
 
-    fun nextNumber(): Int? = if (position < values.size) values[position++] else null
 }
